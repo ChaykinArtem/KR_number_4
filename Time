@@ -1,0 +1,60 @@
+public class Time {
+    private int hours;
+    private int minutes;
+    private int seconds;
+
+    public Time(int hours, int minutes, int seconds) {
+        Hours(hours);
+        Minutes(minutes);
+        Seconds(seconds);
+    }
+
+    public void Hours(int hours) {
+        if (hours < 0 || hours > 23) {
+            throw new IllegalArgumentException("Неверные данные");
+        }
+        this.hours = hours;
+    }
+
+    public void Minutes(int minutes) {
+        if (minutes < 0 || minutes > 59) {
+            throw new IllegalArgumentException("Неверные данные");
+        }
+        this.minutes = minutes;
+    }
+
+    public void Seconds(int seconds) {
+        if (seconds < 0 || seconds > 59) {
+            throw new IllegalArgumentException("Неверные данные");
+        }
+        this.seconds = seconds;
+    }
+
+    public void addHours(int hours) {
+        if (hours < 0) {
+            throw new IllegalArgumentException("Количество часов должно быть положительным");
+        }
+        this.hours = (this.hours + hours) % 24;
+    }
+
+    public void addMinutes(int minutes) {
+        if (minutes < 0) {
+            throw new IllegalArgumentException("Количество минут должно быть положительным");
+        }
+        addHours((this.minutes + minutes) / 60);
+        this.minutes = (this.minutes + minutes) % 60;
+    }
+
+    public void addSeconds(int seconds) {
+        if (seconds < 0) {
+            throw new IllegalArgumentException("Количество секунд должно быть положительным");
+        }
+        addMinutes((this.seconds + seconds) / 60);
+        this.seconds = (this.seconds + seconds) % 60;
+    }
+    
+    public String toString() {
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+}
