@@ -1,0 +1,71 @@
+public class Vec {
+    private double x;
+    private double y;
+    private double z;
+
+    public Vec(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public Vec add(Vec other) {
+        return new Vec(this.x + other.x, this.y + other.y, this.z + other.z);
+    }
+
+    public Vec sub(Vec other) {
+        return new Vec(this.x - other.x, this.y - other.y, this.z - other.z);
+    }
+
+    public double scalar_add(Vec other) {
+        return this.x * other.x + this.y * other.y + this.z * other.z;
+    }
+
+    public double length() {
+        double len = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        if (Double.isNaN(len) || Double.isInfinite(len)) {
+            throw new ArithmeticException("Вычисление длины вектора привело к неопределённому результату.");
+        }
+        return len;
+    }
+
+    public double cosinus(Vec other) {
+        return this.scalar_add(other) / (this.length() * other.length());
+    }
+
+    public String toString() {
+        return "{" + x + ", " + y + ", " + z + "}";
+    }
+
+    public static void main(String[] args) {
+        try {
+            Vec vector_a = new Vec(1.2, 3.4, 9.1);
+            Vec vector_b = new Vec(2.3, 4.8, 6.5);
+
+            System.out.println("Вектор a: " + vector_a);
+            System.out.println("Вектор b: " + vector_b);
+
+            Vec sum = vector_a.add(vector_b);
+            System.out.println("Сложение: " + sum);
+
+            Vec diff = vector_a.sub(vector_b);
+            System.out.println("Вычитание: " + diff);
+
+            double dotProduct = vector_a.scalar_add(vector_b);
+            System.out.println("Скалярное произведение: " + dotProduct);
+
+            double length_a = vector_a.length();
+            System.out.println("Длина вектора a: " + length_a);
+
+            double length_b = vector_b.length();
+            System.out.println("Длина вектора b: " + length_b);
+
+            double cosine = vector_a.cosinus(vector_b);
+            System.out.println("Косинус угла между векторами: " + cosine);
+        } catch (ArithmeticException e) {
+            System.out.println("Математическая ошибка: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Произошла ошибка: " + e.getMessage());
+        }
+    }
+}
